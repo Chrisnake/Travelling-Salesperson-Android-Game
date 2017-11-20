@@ -1,0 +1,53 @@
+MATHEMATICAL GRAPH GAME
+
+- Game based on graphical concepts, making the user find the shortest route on a graph.
+- There is a set starting point and their pathlenght will display on the screen as they move on. 
+- The set starting point will glow up and the available streets/edges will glow up.  
+- If the user goes through the same street again the colour of the line will darken/change. The more they go through the line, the darker the colour to show usage.
+- 
+
+
+- The difficulties will be seperated into different difficulties, where the user can only access a higher level if they have earned the star cap.
+- The user can earn a maximum of 3 stars at each level. 
+ 	1) 1 star is earned for completing the level with a high pathlenght
+	2) 2 stars is earned for completing the level with a medium pathlength
+	3) 3 stars is earned for completing the level with the lowest possible pathlength
+
+Game Modes
+1) Classic game mode: Game mode involves completing a level to earn stars. 
+	- No time limit.
+	- Allows resets.
+	- Earning minimum one star in that level to move on to the next level.
+	- Three different difficulties, easy, intermediate, hard. 
+	- User must earn a certain amount of stars to access the next difficulty.
+	- High scores displayed at completion of game.
+	
+2) Time Limit mode: Beat a set time limit, for example the user must complete as many levels as they can in a minute. Every time they complete a level they gain +1 point. 
+               The more points they get, the harder the graphs get.
+	- Time limit
+	- User has to get highest score on the graph to move on to the next level. If they succeed, they gain +10 seconds on their time.
+	- If the user fails to get the highest score, their path resets and they lose -5 seconds of their time. 
+	- User starts with randomly selected EASY graphs. Completing an EASY graph earns them 10 points.
+	- Once the user has earned 50 points, the graphs change to INTERMEDIATE graphs. Completing an INTERMEDIATE graph earns them 25 points.
+	- Once the user has earned 150 points, the graphs change to HARD graphs. Completing a HARD graph earns them 100 points
+	- There will be a high score page to store the best (example) 10 scores. The user is allowed to type their username to represent their score.
+	- If possible we can implement the high scores through a public server, so there are local high scores and public high scores.
+
+3) DiGet set amount of distance. get through as many 
+
+4) Multiplayer game mode: 
+
+Database 
+high score, levels
+3 tables that are linked together 
+user id / password - linking to user table
+profile page with high scores 
+use cases/uml
+MWSQL
+
+Mathematical Aspects
+1) Travelling Salesman/Hamiltonian Paths: In maths, a hamiltonian path is a path in an undirected or directed graph that visits each vertex exactly once. 
+
+2) Route Inspection/The Chinese postman: This method is used to find the least-weighted closed trail containing every arc, this is called because a postman needs to travel along roads when delivering letters
+
+This is easily done IF and only IF we have pairs of ODD NODES.
