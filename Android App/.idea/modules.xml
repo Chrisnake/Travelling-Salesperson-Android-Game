@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://C:\Users\Sonny Weight\Documents\CS2001-2017-18-group-33\GraphGame-master\GraphGame-master\GraphGame.iml" filepath="C:\Users\Sonny Weight\Documents\CS2001-2017-18-group-33\GraphGame-master\GraphGame-master\GraphGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GraphGame-master.iml" filepath="$PROJECT_DIR$/GraphGame-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Sonny Weight\Documents\CS2001-2017-18-group-33\GraphGame-master\GraphGame-master\app\app.iml" filepath="C:\Users\Sonny Weight\Documents\CS2001-2017-18-group-33\GraphGame-master\GraphGame-master\app\app.iml" />
+    </modules>
+  </component>
+</project>
