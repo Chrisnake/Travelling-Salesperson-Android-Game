@@ -4,6 +4,8 @@ public class Levels
 {
 	private int weight;
 	private int[][] levelsarray;
+	private static int levelid;
+	
 	//One level will have a graph consisting of an 2D array that is a matrix where the values in the matrix are the weight
 	//This class readslevels with the inputted array and stores the levels in an arraylist consisting of edges where the weights are included between the two nodes.
 	//This class also finds the amount of nodes in the level and gets its X and Y values. 
@@ -19,9 +21,10 @@ public class Levels
 	 * The example above shows an example of an easy level. Hence n = the amount of nodes in the graph. In this case n = 2
 	 * This class will allow me to create an instance of a level by inputting a predetermined 2D array.
 	 */
-	Levels(int[][] matrix)
+	Levels(int lid, int[][] matrix)
 	{
 		levelsarray = matrix;
+		levelid = lid; 
 	}
 	
 	public ArrayList<Edge> Readlevel() //This reads and inputs the 2D array that has been inputted into the instance. It then goes through the array and stores the edges connected and the weights they are connected at.
@@ -32,7 +35,7 @@ public class Levels
 			for (int col = 0; col < levelsarray.length; col++)
 			{
 				weight = levelsarray[row][col]; //Find the weight of the edge that is connected in the matrix at position row, col.
-				LevelEdges.add(new Edge(row, col, weight));
+				LevelEdges.add(new Edge(levelid, row, col, weight));
 			}
 		}
 	
@@ -46,33 +49,6 @@ public class Levels
 		
 		//method to get max x and max y(drawable area)
 		//method call the code that populates arraylist of data
-	}
-	
-	public static ArrayList<Node> NodePosition(int[][]levelsarray) //I need to find a way to get the X and Y coordinates of a node and translate the X and Y value into real values depending on the screen.
-	{
-		ArrayList<Node> LevelNodes = new ArrayList<Node>();
-		for (int x = 0; x < levelsarray.length; x++)
-		{
-			LevelNodes.add(new Node(x, 0, 0)); //Add the node 0 and give its coordinates as 0, 0
-		}
-		
-		return LevelNodes;
-		/* EXAMPLE RETURN
-		 * nodes[0] = 0, 1, 3
-		 * nodes[1] = 1, 3, 4
-		 * It will then mathematically change the x and y inputs into values that can be used in android studios.
-		 */
-	}
-	
-	public ArrayList<Node> GetNode(int[][]levelsarray, int NodeToGet) //I need to find a way to get a specific node along with its X and Y coordinates.
-	{
-		ArrayList<Node> Node = new ArrayList<Node>(); //Declares a new Node ArrayList which will contain the node that the user is trying to get.
-		ArrayList<Node> CopyNodes = new ArrayList<Node>(); //Copies the Node arraylist that is obtained from the NodePosition array.
-		
-		CopyNodes = NodePosition(levelsarray);
-		Node.add(CopyNodes.get(NodeToGet)); //Get the node in the position that we are trying to find.
-		
-		return Node;
 	}
 
 	public static void PrintArray(int matrix[][])
