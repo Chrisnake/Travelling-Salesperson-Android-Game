@@ -26,6 +26,16 @@ public class Node extends Object
         y = yy;
     }
 
+    public double getX ()
+    {
+        return x;
+    }
+
+    public double getY()
+    {
+        return y;
+    }
+
     public double ConvertX(double x) //Converting X from normal squared paper measurements to on screen measurements.
     {
         double newX;
