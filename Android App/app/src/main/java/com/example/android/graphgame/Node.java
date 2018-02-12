@@ -2,8 +2,8 @@ package com.example.android.graphgame;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
 import java.util.ArrayList;
+
 public class Node extends Object
 {
     int levelid,nodenumber;
@@ -29,6 +29,10 @@ public class Node extends Object
     {
         y = yy;
     }
+
+    public double getX() { return x; }
+
+    public double getY() { return y; }
 
     public double ConvertX(double x) //Converting X from normal squared paper measurements to on screen measurements.
     {

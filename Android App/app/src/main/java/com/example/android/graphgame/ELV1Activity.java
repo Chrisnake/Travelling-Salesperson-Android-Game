@@ -67,6 +67,4 @@ public class ELV1Activity extends AppCompatActivity
             return true;
         }
     };
-
-
 }
