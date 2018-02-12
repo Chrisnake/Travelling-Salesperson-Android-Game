@@ -23,6 +23,7 @@ public class Levels
 	 * The example above shows an example of an easy level. Hence n = the amount of nodes in the graph. In this case n = 2
 	 * This class will allow me to create an instance of a level by inputting a predetermined 2D array.
 	 */
+
     Levels(int lid, int[][] matrix)
     {
         levelsarray = matrix;

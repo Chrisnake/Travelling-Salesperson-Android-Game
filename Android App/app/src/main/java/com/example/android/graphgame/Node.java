@@ -1,4 +1,8 @@
 package com.example.android.graphgame;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+
 import java.util.ArrayList;
 public class Node extends Object
 {
