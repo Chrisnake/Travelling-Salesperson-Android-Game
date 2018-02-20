@@ -47,9 +47,16 @@ public class Node extends Object
         y = yy;
     }
 
-    public double getX() { return x; }
 
-    public double getY() { return y; }
+    public double getX ()
+    {
+        return x;
+    }
+
+    public double getY()
+    {
+        return y;
+    }
 
     public double ConvertX(double x) //Converting X from normal squared paper measurements to on screen measurements.
     {
@@ -71,30 +78,28 @@ public class Node extends Object
         return y;
     }
 
+    //TODO: I have created an ontouchlistener that successfully gets the x and y values of the on touch, however we just need to find a way to get those values and input it into this methods parameters
     public Node NearestNode(ArrayList<Node> nodes, double touchX2, double touchY2) //Computing the nearest node where the user touches the screen that is not a node
     {
         double distance;
-        double X1 = 600.2; //Find a way to access all the nodes in the specific level
-        double Y1 = 334.1;
+        double X1;
+        double Y1;
         double minDist = Double.MAX_VALUE;
         int minNode = -1;
 
-        for(int x = 0; x < nodes.size(); x++)
+        for(int x = 0; x < nodes.size(); x++) //For loop that iterates through the nodes that are inputted in the parameter
         {
-            X1 = nodes.get(x).getX();
-            Y1 = nodes.get(x).getY();
+            X1 = nodes.get(x).getX(); //Getting the x position of the first Node
+            Y1 = nodes.get(x).getY(); //Getting the y position of the first Node
             distance = Math.sqrt((Math.pow(2, touchY2 - Y1) + (Math.pow(2, touchX2 - X1)))); //Calculates difference between touch and nodes
-            if(distance < minDist)
+            if(distance < minDist) //If the distance between the node is less than the distance before then save that distance and index position
             {
                 minDist = distance;
                 minNode = x;
             }
-
-            DistanceArray.add(distance); //goes through all the nodes and adds the distance into a double arraylist
         }
 
-        double NearestDistance = Collections.min(DistanceArray);
-        return nodes.get(minNode);
+        return nodes.get(minNode); //returns the node at the the position of the lowest distance
     }
 
     public void Print() //This method prints out the node position
