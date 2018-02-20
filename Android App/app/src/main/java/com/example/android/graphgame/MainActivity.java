@@ -10,10 +10,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 //The main activity class is going to be the home page of the application.
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 //TODO: Do the designs and change the XML file to make the design look more professional.
 //TODO: Add the background to all activities.
 
+    public static final String DEBUGTAG = "CHRISVILLEGASB"; //Creating a DEBUGTAG for DDMS.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

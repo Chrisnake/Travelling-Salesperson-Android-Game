@@ -7,8 +7,7 @@ package com.example.android.graphgame;
 //Store an edge, from node i to j with weigh w
 public class Edge extends Object
 {
-    public int i,j;
-    public double w;
+    public int i,j,w;
 
     Edge(int levelid, int ii, int jj, int ww)
     {
@@ -27,4 +26,10 @@ public class Edge extends Object
         System.out.print(w);
         System.out.print(")");
     }
+
+    public int getFromNode() { return i; } //Getting the Edge from the node
+
+    public int getToNode() { return j; }
+
+    public int getWeight() { return w; }
 }
