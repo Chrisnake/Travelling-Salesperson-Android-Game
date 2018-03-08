@@ -1,27 +1,29 @@
 package com.example.android.graphgame;
 import android.content.res.Resources;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import android.graphics.Point;
 
 public class Node extends Object
 {
     int levelid,nodenumber;
-    double x, y;
+    int x, y;
     double ScreenX = getScreenWidth(); //Example X - In Android Studios use function to get screen X
     double ScreenY = getScreenHeight();	//Example Y - In Android Studios use function to get screen Y
     ArrayList<Double> DistanceArray = new ArrayList<Double>();
 
-
-    Node(int lid, double xx, double yy, int pp)
+    Node(int lid, int xx, int yy, int pp)
     {
         levelid = lid; //levelid is the level id and is a global variable
         x = ConvertX(xx);
         y = ConvertY(yy);
+        Point NodePoint = new Point(x,y);
         nodenumber = pp; //nodenumber is the number of the node. For example node A = 1.
     }
 
@@ -37,45 +39,48 @@ public class Node extends Object
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
-    public void setX(double xx)
+    public void setX(int xx)
     {
         x = xx;
     }
 
-    public void setY(double yy)
+    public void setY(int yy)
     {
         y = yy;
     }
 
-
-    public double getX ()
+    public int getX ()
     {
         return x;
     }
 
-    public double getY()
+    public int getY()
     {
         return y;
     }
 
-    public double ConvertX(double x) //Converting X from normal squared paper measurements to on screen measurements.
+    public int ConvertX(int x) //Converting X from normal squared paper measurements to on screen measurements.
     {
-        double newX;
+        Double newX;
+        Double oldX;
         newX = ScreenX / 20; //We are dividing by 20 here because this is the MAX X measurements of the squared paper
-        x = newX * x;
-        setX(x);
-        System.out.print(" x coordinate " + x);
-        return x;
+        oldX = newX * x;
+        int i = oldX.intValue();
+        setX(i);
+        System.out.print(" x coordinate " + i);
+        return i;
     }
 
-    public double ConvertY(double y) //Converting Y from normal squared paper measurements to on screen measurements.
+    public int ConvertY(int y) //Converting Y from normal squared paper measurements to on screen measurements.
     {
-        double newY;
+        Double newY;
+        Double oldX;
         newY = ScreenY / 60; //We are dividing by 20 here because this is the MAX Y measurements of the squared paper
-        y = newY * y;
-        setY(y);
-        System.out.println(" y coordinate " + y);
-        return y;
+        oldX = newY * y;
+        int i = oldX.intValue();
+        setY(i);
+        System.out.println(" y coordinate " + i);
+        return i;
     }
 
     //TODO: I have created an ontouchlistener that successfully gets the x and y values of the on touch, however we just need to find a way to get those values and input it into this methods parameters
