@@ -1,6 +1,15 @@
 package com.example.android.graphgame;
+import android.util.Log;
+
 import org.w3c.dom.Node;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
 
 public class Levels
 {
@@ -74,4 +83,42 @@ public class Levels
             System.out.println(d);
         }
     }
-}
+
+
+
+        public static void getEdge(){
+            try {
+                Statement stmt;
+                ResultSet rs;
+
+                //Register the JDBC driver for MySQL
+
+                Class.forName("com.mysql.jdbc.Driver");
+
+                String url = "jdbc:mysql://172.31.82.94:3306/AppData";
+
+                Connection con = DriverManager.getConnection( url,"root","my-secret-pw");
+                Statement select = con.createStatement();
+
+                // Execute a query
+
+                rs = select.executeQuery("SELECT * FROM Edge;");
+
+                System.out.println("Some results:");
+                while (rs.next()) { // process results one row at a time
+                    String f1 = rs.getString(1);
+                    String f2 = rs.getString(2);
+                    String f3 = rs.getString(3);
+                    String f4 = rs.getString(4);
+
+                    Log.i("test","f1 + f2 + f3 + f4");
+
+                }
+            }
+            catch (Exception e) {
+                Log.i("exception","e");  // What is this doing?
+            }
+        }
+    }
+
+
