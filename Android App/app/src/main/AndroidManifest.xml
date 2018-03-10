@@ -29,7 +29,8 @@
         <activity android:name=".IntermediateDifficultyActivity" />
         <activity android:name=".HardDifficultyActivity" />
         <activity android:name=".ELV1Activity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".Play"></activity>
     </application>
 
 </manifest>
