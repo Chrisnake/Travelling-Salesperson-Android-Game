@@ -18,13 +18,11 @@ public class Node extends Object
     double ScreenY = getScreenHeight();	//Example Y - In Android Studios use function to get screen Y
     ArrayList<Double> DistanceArray = new ArrayList<Double>();
 
-    Node(int lid, int xx, int yy, int pp)
+    Node(int lid, int xx, int yy)
     {
         levelid = lid; //levelid is the level id and is a global variable
         x = ConvertX(xx);
         y = ConvertY(yy);
-        Point NodePoint = new Point(x,y);
-        nodenumber = pp; //nodenumber is the number of the node. For example node A = 1.
     }
 
     public static double getScreenWidth()
