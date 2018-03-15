@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class ELV1Activity extends AppCompatActivity
 {
     public static int levelid = 1;
-    private LineView mLineView;
     public static ArrayList <PointF> nodePoints = new ArrayList<PointF>(); //Store the points in a Point arraylist as it iterates through all the nodes
     public static ArrayList <Integer> edgeWeight = new ArrayList<Integer>();
     public static ArrayList <Node> L1N = new ArrayList <Node>();
@@ -83,6 +82,7 @@ public class ELV1Activity extends AppCompatActivity
         lineview.getWeights(edgeWeight);
         lineview.draw();
         setContentView(lineview);
+
     }
 }
 

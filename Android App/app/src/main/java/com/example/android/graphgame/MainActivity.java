@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity
 //TODO: Do the designs and change the XML file to make the design look more professional.
 //TODO: Add the background to all activities.
 
-    public static final String DEBUGTAG = "CHRISVILLEGASB"; //Creating a DEBUGTAG for DDMS.
+    public static final String DEBUGTAG = "CHRISVILLEGAS"; //Creating a DEBUGTAG for DDMS.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

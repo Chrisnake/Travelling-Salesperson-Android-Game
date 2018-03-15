@@ -8,7 +8,9 @@ import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+
 import java.util.ArrayList;
 
 public class LineView extends View {
@@ -17,6 +19,7 @@ public class LineView extends View {
     private PointF pointCircle;
     static ArrayList<PointF> points = new ArrayList<PointF>();
     static ArrayList<Integer> weights = new ArrayList<Integer>();
+    static ArrayList<Integer> userPath = new ArrayList<Integer>();
 
     public LineView(Context context)
     {
@@ -65,7 +68,9 @@ public class LineView extends View {
     public void drawCircle(Canvas canvas)
     {
         paint.setColor(Color.RED);
-        for(int i = 0; i < points.size() - 1; i++)
+        canvas.drawCircle(points.get(0).x, points.get(0).y, 20, paint); //Paint the first node red
+        paint.setColor(Color.BLACK);
+        for(int i = 1; i < points.size() - 1; i++)
         {
             canvas.drawCircle(points.get(i).x, points.get(i).y, 20, paint);
         }
@@ -100,6 +105,7 @@ public class LineView extends View {
             }
         }
     }
+
     //This class gets the array list of nodes (points) and then puts puts it into this class so the drawline occurs.
     public static ArrayList<PointF> getPoints (ArrayList<PointF> point)
     {
@@ -118,4 +124,52 @@ public class LineView extends View {
         invalidate();
         requestLayout();
     }
+
+    public int whatNode(float userX, float userY) //Check what node the user is on
+    {
+        int thisNode = 0;
+        for(int i = 0; i < points.size() - 1; i++)
+        {
+            if (userX > points.get(i).x - 40 && userX < points.get(i).x + 40 && userY > points.get(i).y - 40 && userY < points.get(i).y + 40) //checks if user touches a node i
+            {
+                i = thisNode;
+            }
+            else //If the user didnt touch a node.
+            {
+                thisNode = -1;
+            }
+        }
+        return thisNode;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) //On touch event on the canvas
+    {
+        float x = event.getX();
+        float y = event.getY();
+
+        if (whatNode(x, y) > 0) //If the user touches a node
+        {
+            if (x > points.get(whatNode(x,y)).x - 40 && x < points.get(whatNode(x,y)).x + 40 && y > points.get(whatNode(x,y)).y - 40 && y < points.get(whatNode(x,y)).y + 40) //If user touches the canvas where there is a circle
+            {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.i(MainActivity.DEBUGTAG, "I PRESSED ON A CIRCLE!");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Log.i(MainActivity.DEBUGTAG, "MY FINGER LEFT A CIRCLE");
+                        //userPath.add(i); //Add node to user path
+                        break;
+                }
+            }
+        }
+        else //If the user didnt touch the canvas where there is a circle
+        {
+            String message = String.format("Coordinates (%.2f, %.2f)", x, y);
+            Log.d(MainActivity.DEBUGTAG, message); //Debug tag for showing coordinates in the DDMS system.
+            //TODO: NEAREST NODE CODE
+        }
+        return true;
+    }
 }
+

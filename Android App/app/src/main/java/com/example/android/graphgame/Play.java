@@ -9,6 +9,7 @@ public class Play extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        Levels.getEdge();
+        Levels hey = new Levels(1);
+        hey.readEdge();
     }
 }
