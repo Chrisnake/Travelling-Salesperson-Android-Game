@@ -26,31 +26,86 @@ package com.example.android.graphgame;
  */
 public class Stars
 {
-    int usersScore;
-    int bronzeScore;
-    int ilverScore;
-    int goldScore;
-    int platinumScore;
-    int diamondScore;
+    static int initialScore; //ADD THE SCORE USER GOT TO THIS VARIABLE
+    static int optimalScore = 100; //Get the optimalscore from the database
+    static int bronzeScore = 20; //Complete level
+    static int silverScore = 40; //Within 40% of the optimal score
+    static int goldScore = 60; //Within 60% of the optimal score
+    static int platniumScore = 80; //Within 80% of the optimal score
+    static int diamondScore = 100; // Exactly the same as the optimal score
 
-    public static int scoreSystem (int userScore)
+    public static void main(String[] args)
     {
 
-        return userScore;
+        System.out.println("BRONZE = " + completedLevel());
+        initialScore = 40 ;
+        System.out.println("SILVER = " + calculateUsersScore());
+        initialScore = 60 ;
+        System.out.println("GOLD = " + calculateUsersScore());
+        initialScore = 80 ;
+        System.out.println("PLAT = " + calculateUsersScore());
+        initialScore = 100 ;
+        System.out.println("DIAMOND = " + calculateUsersScore());
     }
 
-    public static int retrieveOptimumScore()
+    public static double calculateUsersScore()
     {
-        int optimalScore = 0;
+        System.out.print(initialScore + " ");
+        int usersReward = 0;
+        //LINE BELOW RETURNING 0 FOR ALL RESULTS EXCEPT 100, WORKOUT WHY AND FIX
+        int accuracyScore = Efficiency(initialScore,optimalScore);
+        System.out.print(accuracyScore + " ");
+        if(accuracyScore == 1)
+        {
+            usersReward = diamondScore;
+        }
+        else if (80 <= accuracyScore && accuracyScore < 100)
+        {
+            usersReward = platniumScore;
+        }
+        else if (60 <= accuracyScore && accuracyScore < 80)
+        {
+            usersReward = goldScore;
+        }
+        else if (40 <= accuracyScore && accuracyScore < 60)
+        {
+            usersReward = silverScore;
+        }
+        return usersReward;
+    }
+
+    public static int Efficiency(int Score, int optimalScore)
+    {
+        int efficiency = ((Score/optimalScore) * 100);
+        return efficiency;
+    }
+
+    public static int retrieveUsersScore()
+    {
+
+        //Method sed to retrieve the score user achieved
+        // ADD COMMAND TO RETRIEVE THE RESULT
+        //initialScore  = ;
+
+        return initialScore;
+    }
+
+    public static int retrieveOptimalAnswer()
+    {
         /*
-        This method will be used to retrieve the score for each level from the database
+         * int retrieveScore = ; ADD COMMAND HERE TO RETRIEVE OPTIMAL SCORE
+         * CHANGE THE RETURN STATEMENT TO RETURN ABOVE VARIABLE
          */
         return optimalScore;
     }
 
-    public static int compareUserScore(int userScore, int optimalScore)
+    public static int completedLevel()
     {
-        int reward = 0;
-        return reward;
+        /*
+         * FIRST USE THIS TO CHECK IF USER COMPLETED THE LEVEL SUCCESFULLY TO AWARD BRONZE
+         * MAYBE USING AN IF STATEMENT?
+         */
+        initialScore = bronzeScore;
+        return initialScore;
     }
 } //End of class
