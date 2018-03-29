@@ -1,5 +1,6 @@
 package com.example.android.graphgame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,7 @@ public class LineView extends View {
     static ArrayList<PointF> points = new ArrayList<PointF>();
     static ArrayList<Integer> weights = new ArrayList<Integer>();
     static ArrayList<Integer> userPath = new ArrayList<Integer>();
+    static ArrayList<Edge> edges = new ArrayList<Edge>();
 
     public LineView(Context context)
     {
@@ -43,7 +46,7 @@ public class LineView extends View {
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
-
+        userPath.add(0);
         drawLine(canvas); //Draw the lines between the points
         drawCircle(canvas); //Draw the nodes
         drawWeights(canvas); //Draw the weights
@@ -109,14 +112,20 @@ public class LineView extends View {
     //This class gets the array list of nodes (points) and then puts puts it into this class so the drawline occurs.
     public static ArrayList<PointF> getPoints (ArrayList<PointF> point)
     {
-        points = point; //ACTS AS A SETTER FOR THE CLASS
+        points = point; //ACTS AS A SETTER FOR POINTS ARRAYLIST
         return points;
     }
 
     public static ArrayList<Integer> getWeights (ArrayList<Integer> weight)
     {
-        weights = weight; //ACTS AS A SETTER FOR THE CLASS
+        weights = weight; //ACTS AS A SETTER FOR WEIGHTS ARRAYLIST
         return weights;
+    }
+
+    public static ArrayList<Edge> getEdges (ArrayList<Edge> edge)
+    {
+       edges = edge; //ACTS AS A SETTER FOR EDGES ARRAYLIST
+       return edges;
     }
 
     public void draw()
@@ -125,18 +134,43 @@ public class LineView extends View {
         requestLayout();
     }
 
+    public int currentNode() //This method returns what node the user is currently on
+    {
+        int thisNode = userPath.get(userPath.size() - 1); //Get's the size of userPath, -1 and this will always be the most updated node.
+        return thisNode;
+    }
+
+    public boolean NodeLink(int toNode) //This method checks if there is a link between the current node and the TO node.
+    {
+        boolean check = false;
+        int fromNode = currentNode();
+        for(int i = 0; i < edges.size(); i++) //goes through edges array list to check whether there is a link.
+        {
+            if(edges.get(i).hasLink(fromNode,toNode) == true)
+            {
+                check = true;
+                break;
+            }
+            else
+            {
+                check = false;
+            }
+        }
+        return check;
+    }
+
     public int whatNode(float userX, float userY) //Check what node the user is on
     {
-        int thisNode = 0;
-        for(int i = 0; i < points.size() - 1; i++)
+        int thisNode = -1;
+
+        for(int i = 0; i < points.size(); i++)
         {
             if (userX > points.get(i).x - 40 && userX < points.get(i).x + 40 && userY > points.get(i).y - 40 && userY < points.get(i).y + 40) //checks if user touches a node i
             {
-                i = thisNode;
-            }
-            else //If the user didnt touch a node.
-            {
-                thisNode = -1;
+                thisNode = i;
+                String message = "Node Touched: " + Integer.toString(thisNode);
+                Log.d(MainActivity.DEBUGTAG, message);
+                break;
             }
         }
         return thisNode;
@@ -147,25 +181,37 @@ public class LineView extends View {
     {
         float x = event.getX();
         float y = event.getY();
+        int toNode = whatNode(x, y);
 
-        if (whatNode(x, y) > 0) //If the user touches a node
+        if (toNode >= 0 && NodeLink(toNode)) //If the user touched node is ACTUALLY a node, AND IF the nodelink is true.
         {
-            if (x > points.get(whatNode(x,y)).x - 40 && x < points.get(whatNode(x,y)).x + 40 && y > points.get(whatNode(x,y)).y - 40 && y < points.get(whatNode(x,y)).y + 40) //If user touches the canvas where there is a circle
-            {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.i(MainActivity.DEBUGTAG, "I PRESSED ON A CIRCLE!");
                         break;
                     case MotionEvent.ACTION_UP:
                         Log.i(MainActivity.DEBUGTAG, "MY FINGER LEFT A CIRCLE");
-                        //userPath.add(i); //Add node to user path
+                        userPath.add(toNode); //Add node to user path
                         break;
                 }
+
+        }
+        else if (toNode >= 0 && !NodeLink(toNode)) //If the user touched node is ACTUALLY a node, BUT there is no link.
+        {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    Log.i(MainActivity.DEBUGTAG, "I PRESSED ON A CIRCLE THAT DOES NOT HAVE A LINK!");
+
+                    break;
+                case MotionEvent.ACTION_UP:
+                    Log.i(MainActivity.DEBUGTAG, "MY FINGER LEFT A CIRCLE THAT DOES NOT HAVE A LINK!");
+                    //userPath.add(i); //Add node to user path
+                    break;
             }
         }
-        else //If the user didnt touch the canvas where there is a circle
+        else if (toNode == -1) //If the user didnt touch the canvas where there is a circle
         {
-            String message = String.format("Coordinates (%.2f, %.2f)", x, y);
+            String message = String.format("Coordinates(No node touched): (%.2f, %.2f)", x, y);
             Log.d(MainActivity.DEBUGTAG, message); //Debug tag for showing coordinates in the DDMS system.
             //TODO: NEAREST NODE CODE
         }

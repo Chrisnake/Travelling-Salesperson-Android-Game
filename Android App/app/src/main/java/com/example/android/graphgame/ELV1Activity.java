@@ -13,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.graphics.PointF;
+import android.widget.Toast;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -40,11 +42,11 @@ public class ELV1Activity extends AppCompatActivity
         Edge edge3 = new Edge(levelid, 1, 2, 3);
 
         //TODO: Create a method that loads the nodes and edges which can easily be switched when the database is introduced
-        L1N.add(node1); //ADDING THE NODES
+        L1N.add(node1); //ADDING THE NODES TO AN ARRAYLIST OF NODE
         L1N.add(node2);
         L1N.add(node3);
 
-        L1E.add(edge1); //ADDING THE EDGES
+        L1E.add(edge1); //ADDING THE EDGES TO AN ARRAYLIST OF EDGE
         L1E.add(edge2);
         L1E.add(edge3);
 
@@ -80,6 +82,7 @@ public class ELV1Activity extends AppCompatActivity
         lineview = new LineView(this);
         lineview.getPoints(nodePoints);
         lineview.getWeights(edgeWeight);
+        lineview.getEdges(L1E);
         lineview.draw();
         setContentView(lineview);
 
