@@ -36,4 +36,19 @@ public class Edge extends Object
     {
         return w;
     }
+
+    public boolean hasLink(int fromNode, int toNode)
+    {
+        boolean check;
+        if (fromNode == i && toNode == j && w > 0) //Checks if there is a link between from and to node.
+        {
+           check = true;
+        }
+        else
+        {
+           check = false;
+        }
+
+        return check;
+    }
 }
