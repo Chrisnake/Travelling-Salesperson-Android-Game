@@ -26,42 +26,37 @@ package com.example.android.graphgame;
  */
 public class Stars
 {
-    static int initialScore; //ADD THE SCORE USER GOT TO THIS VARIABLE
-    static int optimalScore = 100; //Get the optimalscore from the database
+
+    static double initialScore = 40; //ADD THE SCORE USER GOT TO THIS VARIABLE
+    static double optimalScore = 100; //Get the optimalscore from the database
     static int bronzeScore = 20; //Complete level
-    static int silverScore = 40; //Within 40% of the optimal score
-    static int goldScore = 60; //Within 60% of the optimal score
-    static int platniumScore = 80; //Within 80% of the optimal score
+    static int silverScore = 40; //More than 40% correct
+    static int goldScore = 60; //More than 60% correct
+    static int platinumScore = 80; //More than 80% correct
     static int diamondScore = 100; // Exactly the same as the optimal score
+
+    public Stars(int Level, double Score)
+    {
+        initialScore = Score ; // ENTER USES SCORE HERE
+
+    }
 
     public static void main(String[] args)
     {
-
-        System.out.println("BRONZE = " + completedLevel());
-        initialScore = 40 ;
-        System.out.println("SILVER = " + calculateUsersScore());
-        initialScore = 60 ;
-        System.out.println("GOLD = " + calculateUsersScore());
-        initialScore = 80 ;
-        System.out.println("PLAT = " + calculateUsersScore());
-        initialScore = 100 ;
-        System.out.println("DIAMOND = " + calculateUsersScore());
+        System.out.println("YOU GOT = " + calculateUsersScore(initialScore));
     }
 
-    public static double calculateUsersScore()
+    public static double calculateUsersScore(double Score)
     {
-        System.out.print(initialScore + " ");
-        int usersReward = 0;
-        //LINE BELOW RETURNING 0 FOR ALL RESULTS EXCEPT 100, WORKOUT WHY AND FIX
-        int accuracyScore = Efficiency(initialScore,optimalScore);
-        System.out.print(accuracyScore + " ");
-        if(accuracyScore == 1)
+        double usersReward;
+        double accuracyScore = Efficiency(Score);
+        if(accuracyScore == 100)
         {
             usersReward = diamondScore;
         }
         else if (80 <= accuracyScore && accuracyScore < 100)
         {
-            usersReward = platniumScore;
+            usersReward = platinumScore;
         }
         else if (60 <= accuracyScore && accuracyScore < 80)
         {
@@ -71,16 +66,20 @@ public class Stars
         {
             usersReward = silverScore;
         }
+        else
+        {
+            usersReward = completedLevel();
+        }
         return usersReward;
     }
 
-    public static int Efficiency(int Score, int optimalScore)
+    public static double Efficiency(double Score)
     {
-        int efficiency = ((Score/optimalScore) * 100);
+        double efficiency = (Score/optimalScore) * 100 ;
         return efficiency;
     }
 
-    public static int retrieveUsersScore()
+    public static double retrieveUsersScore()
     {
 
         //Method sed to retrieve the score user achieved
@@ -90,7 +89,7 @@ public class Stars
         return initialScore;
     }
 
-    public static int retrieveOptimalAnswer()
+    public static double retrieveOptimalAnswer()
     {
         /*
          * int retrieveScore = ; ADD COMMAND HERE TO RETRIEVE OPTIMAL SCORE
@@ -99,7 +98,7 @@ public class Stars
         return optimalScore;
     }
 
-    public static int completedLevel()
+    public static double completedLevel()
     {
         /*
          * FIRST USE THIS TO CHECK IF USER COMPLETED THE LEVEL SUCCESFULLY TO AWARD BRONZE
