@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 //TODO: Do the designs and change the XML file to make the design look more professional.
 //TODO: Add the background to all activities.
 
+    public static final String DEBUGTAG = "CHRISVILLEGAS";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +41,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button Credits = findViewById(R.id.btnCredits); //Creating a button and relating it to the profile id.
-        Credits.setOnClickListener(new View.OnClickListener() //Using the onclick listener which is activated when a user clicks the profile button.
+        Button LevelSelect = findViewById(R.id.btnLevels); //Creating a button and relating it to the profile id.
+        LevelSelect.setOnClickListener(new View.OnClickListener() //Using the onclick listener which is activated when a user clicks the profile button.
         {
             public void onClick(View view) //This method will occur when it is clicked.
             {
-                Intent Creditsintent = new Intent(MainActivity.this, Credits.class); //Points it to the Credits Screen.
-                startActivity(Creditsintent);
+                Intent Levelintent = new Intent(MainActivity.this, DifficultySelectActivity.class); //Points it to the Credits Screen.
+                startActivity(Levelintent);
             }
         });
+
+
     }
 }

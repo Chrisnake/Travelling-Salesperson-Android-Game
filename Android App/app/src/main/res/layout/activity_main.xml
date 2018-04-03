@@ -11,9 +11,9 @@
         android:id="@+id/btnPLay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="169dp"
+        android:layout_marginTop="193dp"
         android:text="PLAY" />
 
     <Button
@@ -26,14 +26,13 @@
         android:text="Highscores!" />
 
     <Button
-        android:id="@+id/btnCredits"
+        android:id="@+id/btnLevels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnPLay"
-        android:layout_alignStart="@+id/btnPLay"
-        android:layout_below="@+id/btnHighscores"
-        android:layout_marginTop="21dp"
-        android:text="Credits!" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="140dp"
+        android:text="Levels" />
 
     <TextView
         android:id="@+id/textView"
