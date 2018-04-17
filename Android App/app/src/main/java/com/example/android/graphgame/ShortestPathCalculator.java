@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /*
-    USED TO CALCULATE THE SHORTEST PATH OF THE LEVEL THE USER IS PLAYING,
+    USED TO CALCULATE THE MINIMUM SHORTEST PATH CALCULATE OF THE LEVEL THE USER IS PLAYING,
     RESULT OF THIS CLASS IS WHAT THE USERS ANSWER IS COMPARED TO
  */
 public class ShortestPathCalculator {
 
-    public static int levelid;
-    public static ArrayList <Integer> shortestPath = new ArrayList<Integer>(ELV1Activity.L1E.size()); //
+    public static int levelid; //id OF THE LEVEL
+    public static ArrayList <Integer> shortestPath = new ArrayList<Integer>(ELV1Activity.L1E.size()); // Hold the edges weight
 
-    public static int sum;
+    public static double sum; //Sum of the minimum path
 
     public ShortestPathCalculator(int levelid)
     {
@@ -21,33 +21,28 @@ public class ShortestPathCalculator {
 
     public static void main()
     {
-
+        //Get the level
+        ArrayList <Integer>  t = ELV1Activity.edgeWeight;
+        //Calculate the answer
+        tourCost(t.size(),t);
+        //Return the level answer
+        returnAnswer();
     }
 
-    public static ArrayList<Integer> randomFirstTour()
-    {
-        int N = ELV1Activity.L1N.size();
-        ArrayList<Integer> firstTour = new ArrayList<Integer>(N);
-        for(int i = 0 ; i < N ; i++)
-        {
-            firstTour.add(i); //Add i
-        }
-        Collections.shuffle(firstTour); //Shuffle the list
-        return firstTour;
-    }
-
-    public static double tourCost (int N, ArrayList<Integer> t ,double[][] d )
+    public static void tourCost (int N , ArrayList <Integer>  t )
     {
         double s = 0.0;
 
-        for(int i = 0 ; i < (N - 1) ; i++)
+        for(int i = 0 ; i < t.size() ; i++)
         {
-            int a = t.get(i); //current node
-            int b = t.get(i + 1); //next node
-            s = s + d[a][b];
+            s += t.get(i);
         }
 
-        return s;
+        sum = s ; //Total sum equals the cost of the tour
     }
 
+    public static double returnAnswer()
+    {
+        return sum;
+    }
 }
