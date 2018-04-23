@@ -33,13 +33,13 @@ public class ELV1Activity extends AppCompatActivity
 
     public static void main()
     {
-        Node node1 = new Node(levelid, 10, 40); //Node 1 at x coordinate 10, and y coordinate 20.
+        Node node1 = new Node(levelid, 10, 40); //Node 0 at x coordinate 10, and y coordinate 20.
         Node node2 = new Node(levelid, 5, 20);
         Node node3 = new Node(levelid, 15, 20);
 
-        Edge edge1 = new Edge(levelid, 0, 1, 1);
-        Edge edge2 = new Edge(levelid, 0, 2, 2);
-        Edge edge3 = new Edge(levelid, 1, 2, 3);
+        Edge edge1 = new Edge(levelid, 0, 1, 10);
+        Edge edge2 = new Edge(levelid, 0, 2, 20);
+        Edge edge3 = new Edge(levelid, 1, 2, 35);
 
         //TODO: Create a method that loads the nodes and edges which can easily be switched when the database is introduced
         L1N.add(node1); //ADDING THE NODES TO AN ARRAYLIST OF NODE

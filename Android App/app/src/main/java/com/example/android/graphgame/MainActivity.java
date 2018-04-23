@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         {
             public void onClick(View v)
             {
-                Intent intent = new Intent(MainActivity.this, Play.class );
+                Intent intent = new Intent(MainActivity.this, ELV1Activity.class );
                 startActivity(intent);
             }
         });

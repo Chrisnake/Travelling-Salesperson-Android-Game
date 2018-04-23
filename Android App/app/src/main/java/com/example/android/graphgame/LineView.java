@@ -2,6 +2,7 @@ package com.example.android.graphgame;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,18 +12,19 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
+
 
 import java.util.ArrayList;
 
 public class LineView extends View {
 
     Paint paint;
-    private PointF pointCircle;
-    static ArrayList<PointF> points = new ArrayList<PointF>();
-    static ArrayList<Integer> weights = new ArrayList<Integer>();
-    static ArrayList<Integer> userPath = new ArrayList<Integer>();
-    static ArrayList<Edge> edges = new ArrayList<Edge>();
+    static ArrayList<PointF> points = new ArrayList<PointF>(); //points: all the points on the graph
+    static ArrayList<Integer> weights = new ArrayList<Integer>(); //weights: the weights between the points
+    static ArrayList<Integer> userPath = new ArrayList<Integer>(); //userPath: the user path that they take
+    static ArrayList<Edge> edges = new ArrayList<Edge>(); //edges: the arcs in an Edge arraylist
+    static int userScore = 0;
 
     public LineView(Context context)
     {
@@ -50,6 +52,7 @@ public class LineView extends View {
         drawLine(canvas); //Draw the lines between the points
         drawCircle(canvas); //Draw the nodes
         drawWeights(canvas); //Draw the weights
+        drawScore(canvas); //Draw the score
     }
 
     public void drawLine(Canvas canvas)
@@ -109,7 +112,15 @@ public class LineView extends View {
         }
     }
 
-    //This class gets the array list of nodes (points) and then puts puts it into this class so the drawline occurs.
+    public void drawScore(Canvas canvas)
+    {
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(270);
+        String convert = Integer.toString(userScore); //TODO: How to change value of score when userScore updates
+        canvas.drawText(convert,450,350, paint);
+    }
+
+    //This method gets the array list of nodes (points) and then puts puts it into this class so the drawline occurs.
     public static ArrayList<PointF> getPoints (ArrayList<PointF> point)
     {
         points = point; //ACTS AS A SETTER FOR POINTS ARRAYLIST
@@ -142,13 +153,14 @@ public class LineView extends View {
 
     public boolean NodeLink(int toNode) //This method checks if there is a link between the current node and the TO node.
     {
-        boolean check = false;
+        boolean check = true;
         int fromNode = currentNode();
         for(int i = 0; i < edges.size(); i++) //goes through edges array list to check whether there is a link.
         {
-            if(edges.get(i).hasLink(fromNode,toNode) == true)
+            if(edges.get(i).hasLink(fromNode,toNode))
             {
                 check = true;
+                Log.d(MainActivity.DEBUGTAG, "THERE IS A LINK");
                 break;
             }
             else
@@ -157,6 +169,26 @@ public class LineView extends View {
             }
         }
         return check;
+    }
+
+    public int LinkWeight(int toNode) //This method checks if there is a link between the current node and the TO node.
+    {
+        int weight;
+        if(toNode == 0) //If they are returning back to their starting node and are finished.
+        {
+            weight = weights.get(weights.size());
+        }
+        else
+        {
+            weight = weights.get(toNode - 1);
+
+            String message = "Weight of node touched: " + Integer.toString(weight);
+            Log.d(MainActivity.DEBUGTAG, message);
+            Log.d(MainActivity.DEBUGTAG, "THERE IS A LINK");
+            String message2 = "Weight of arc: " + Integer.toString(weight);
+            Log.d(MainActivity.DEBUGTAG, message2);
+        }
+        return weight;
     }
 
     public int whatNode(float userX, float userY) //Check what node the user is on
@@ -183,7 +215,7 @@ public class LineView extends View {
         float y = event.getY();
         int toNode = whatNode(x, y);
 
-        if (toNode >= 0 && NodeLink(toNode)) //If the user touched node is ACTUALLY a node, AND IF the nodelink is true.
+        if (toNode != -1 && NodeLink(toNode)) //If the user touched node is ACTUALLY a node, AND IF the nodelink is true.
         {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
@@ -192,11 +224,13 @@ public class LineView extends View {
                     case MotionEvent.ACTION_UP:
                         Log.i(MainActivity.DEBUGTAG, "MY FINGER LEFT A CIRCLE");
                         userPath.add(toNode); //Add node to user path
+                        userScore = userScore + LinkWeight(toNode); //Updating the user score
+                        String message = "UserScore: " + Integer.toString(userScore);
+                        Log.i(MainActivity.DEBUGTAG, message);
                         break;
                 }
-
         }
-        else if (toNode >= 0 && !NodeLink(toNode)) //If the user touched node is ACTUALLY a node, BUT there is no link.
+        else if (toNode != -1 && !NodeLink(toNode)) //If the user touched node is ACTUALLY a node, BUT there is no link.
         {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -205,7 +239,20 @@ public class LineView extends View {
                     break;
                 case MotionEvent.ACTION_UP:
                     Log.i(MainActivity.DEBUGTAG, "MY FINGER LEFT A CIRCLE THAT DOES NOT HAVE A LINK!");
-                    //userPath.add(i); //Add node to user path
+                    break;
+            }
+        }
+        else if (toNode == 0) //If the user touches the starting node, with the assumption that they cannot go back.
+        {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    Log.i(MainActivity.DEBUGTAG, "I PRESSED BACK ONTO THE STARTING NODE");
+                    break;
+                case MotionEvent.ACTION_UP:
+                    Log.i(MainActivity.DEBUGTAG, "I'M FINISHED!");
+                    userPath.add(toNode); //Add node to user path
+                    userScore = userScore + LinkWeight(toNode); //Updating the user score
+                    //TODO: MOVE USER TO NEW PAGE AFTER COMPLETION.
                     break;
             }
         }
