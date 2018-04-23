@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -20,12 +21,21 @@ import java.util.ArrayList;
 public class LineView extends View {
 
     Paint paint;
+<<<<<<< HEAD
     static ArrayList<PointF> points = new ArrayList<PointF>(); //points: all the points on the graph
     static ArrayList<Integer> weights = new ArrayList<Integer>(); //weights: the weights between the points
     static ArrayList<Integer> userPath = new ArrayList<Integer>(); //userPath: the user path that they take
     static ArrayList<Edge> edges = new ArrayList<Edge>(); //edges: the arcs in an Edge arraylist
     static int userScore = 0;
 
+=======
+    private PointF pointCircle;
+    static ArrayList<PointF> points = new ArrayList<PointF>();
+    static ArrayList<Integer> weights = new ArrayList<Integer>();
+    static ArrayList<Integer> userPath = new ArrayList<Integer>();
+    static ArrayList<Edge> edges = new ArrayList<Edge>();
+    static ArrayList<Float> newPoint = new ArrayList<>();
+>>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
     public LineView(Context context)
     {
         super(context);
@@ -48,27 +58,43 @@ public class LineView extends View {
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
-        userPath.add(0);
+        //userPath.add(0);
         drawLine(canvas); //Draw the lines between the points
         drawCircle(canvas); //Draw the nodes
         drawWeights(canvas); //Draw the weights
+<<<<<<< HEAD
         drawScore(canvas); //Draw the score
+=======
+
+
+>>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
     }
 
     public void drawLine(Canvas canvas)
     {
-        paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(10);
 
-        for(int i = 0; i < points.size() - 1; i++)
-        {
-            canvas.drawLine(points.get(i).x, points.get(i).y, points.get(i + 1).x, points.get(i + 1).y, paint);
-            //This draws the line and gets the points from the points array list that has been inputted from another class.
-            //It then gets the x value of point and then y, and then gets the point at the position above the point before.
-            //In simple terms it gets node 1, and then point 2 and then paints it.
+        if(newPoint.size() != 4) {
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(10);
+
+            for (int i = 0; i < points.size() - 1; i++) {
+                canvas.drawLine(points.get(i).x, points.get(i).y, points.get(i + 1).x, points.get(i + 1).y, paint);
+                //This draws the line and gets the points from the points array list that has been inputted from another class.
+                //It then gets the x value of point and then y, and then gets the point at the position above the point before.
+                //In simple terms it gets node 1, and then point 2 and then paints it.
+            }
+            canvas.drawLine(points.get(0).x, points.get(0).y, points.get(points.size() - 1).x, points.get(points.size() - 1).y, paint);
         }
-
-        canvas.drawLine(points.get(0).x, points.get(0).y, points.get(points.size() - 1).x, points.get(points.size() - 1).y, paint);
+        else
+        {
+            paint.setColor(Color.WHITE);
+            paint.setStrokeWidth(10);
+            canvas.drawLine(newPoint.get(0),newPoint.get(1),newPoint.get(2),newPoint.get(3), paint);
+            paint.setColor(Color.GREEN);
+            paint.setStrokeWidth(10);
+            canvas.drawLine(newPoint.get(0),newPoint.get(1),newPoint.get(2),newPoint.get(3), paint);
+            newPoint.clear();
+        }
     }
 
     public void drawCircle(Canvas canvas)
@@ -159,8 +185,13 @@ public class LineView extends View {
         {
             if(edges.get(i).hasLink(fromNode,toNode))
             {
+
                 check = true;
+<<<<<<< HEAD
                 Log.d(MainActivity.DEBUGTAG, "THERE IS A LINK");
+=======
+
+>>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
                 break;
             }
             else
@@ -201,7 +232,23 @@ public class LineView extends View {
             {
                 thisNode = i;
                 String message = "Node Touched: " + Integer.toString(thisNode);
+                String message2 = "What is the SIZZZEEE = " + newPoint.size();
+                if(newPoint.size() == 4)
+                {
+                    draw();
+                    newPoint.clear();
+                }
+                else
+                {
+                    newPoint.add(userX);
+                    newPoint.add(userY);
+                    draw();
+                    newPoint.clear();
+
+                }
+
                 Log.d(MainActivity.DEBUGTAG, message);
+                Log.d(MainActivity.DEBUGTAG, message2);
                 break;
             }
         }
@@ -211,16 +258,23 @@ public class LineView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) //On touch event on the canvas
     {
+
         float x = event.getX();
         float y = event.getY();
         int toNode = whatNode(x, y);
+<<<<<<< HEAD
 
         if (toNode != -1 && NodeLink(toNode)) //If the user touched node is ACTUALLY a node, AND IF the nodelink is true.
+=======
+        if (toNode >= 0 && NodeLink(toNode)) //If the user touched node is ACTUALLY a node, AND IF the nodelink is true.
+>>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
         {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.i(MainActivity.DEBUGTAG, "I PRESSED ON A CIRCLE!");
+                        //If second touch, has a link then add new point to newPoint and draw green line between these nodes.
                         break;
+
                     case MotionEvent.ACTION_UP:
                         Log.i(MainActivity.DEBUGTAG, "MY FINGER LEFT A CIRCLE");
                         userPath.add(toNode); //Add node to user path
@@ -235,7 +289,6 @@ public class LineView extends View {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     Log.i(MainActivity.DEBUGTAG, "I PRESSED ON A CIRCLE THAT DOES NOT HAVE A LINK!");
-
                     break;
                 case MotionEvent.ACTION_UP:
                     Log.i(MainActivity.DEBUGTAG, "MY FINGER LEFT A CIRCLE THAT DOES NOT HAVE A LINK!");
@@ -256,12 +309,14 @@ public class LineView extends View {
                     break;
             }
         }
+
         else if (toNode == -1) //If the user didnt touch the canvas where there is a circle
         {
             String message = String.format("Coordinates(No node touched): (%.2f, %.2f)", x, y);
             Log.d(MainActivity.DEBUGTAG, message); //Debug tag for showing coordinates in the DDMS system.
             //TODO: NEAREST NODE CODE
         }
+
         return true;
     }
 }

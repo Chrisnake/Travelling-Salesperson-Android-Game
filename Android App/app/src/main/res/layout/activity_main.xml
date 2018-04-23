@@ -7,42 +7,32 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.graphgame.MainActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:background="@drawable/background" />
-
     <Button
-        android:id="@+id/playbutton"
+        android:id="@+id/btnPLay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="169dp"
+        android:layout_marginTop="193dp"
         android:text="PLAY" />
 
     <Button
-        android:id="@+id/levelsbutton"
+        android:id="@+id/btnHighscores"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/playbutton"
-        android:layout_alignLeft="@+id/playbutton"
-        android:layout_alignRight="@+id/playbutton"
-        android:layout_alignStart="@+id/playbutton"
-        android:layout_alignTop="@+id/playbutton"
-        android:layout_marginTop="68dp"
-        android:text="LEVEL SELECT" />
+        android:layout_below="@+id/btnPLay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Highscores!" />
 
     <Button
-        android:id="@+id/profilebutton"
+        android:id="@+id/btnLevels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/levelsbutton"
-        android:layout_alignStart="@+id/levelsbutton"
-        android:layout_below="@+id/levelsbutton"
-        android:layout_marginTop="21dp"
-        android:text="PROFILE" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="140dp"
+        android:text="Levels" />
 
     <TextView
         android:id="@+id/textView"
