@@ -46,13 +46,11 @@ public class MainActivity extends AppCompatActivity {
         {
             public void onClick(View view) //This method will occur when it is clicked.
             {
-<<<<<<< HEAD
                 Intent intent = new Intent(MainActivity.this, ELV1Activity.class );
                 startActivity(intent);
-=======
+
                 Intent Levelintent = new Intent(MainActivity.this, DifficultySelectActivity.class); //Points it to the Credits Screen.
                 startActivity(Levelintent);
->>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
             }
         });
 

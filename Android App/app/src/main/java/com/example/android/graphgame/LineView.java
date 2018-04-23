@@ -21,21 +21,14 @@ import java.util.ArrayList;
 public class LineView extends View {
 
     Paint paint;
-<<<<<<< HEAD
-    static ArrayList<PointF> points = new ArrayList<PointF>(); //points: all the points on the graph
+       static ArrayList<PointF> points = new ArrayList<PointF>(); //points: all the points on the graph
     static ArrayList<Integer> weights = new ArrayList<Integer>(); //weights: the weights between the points
     static ArrayList<Integer> userPath = new ArrayList<Integer>(); //userPath: the user path that they take
     static ArrayList<Edge> edges = new ArrayList<Edge>(); //edges: the arcs in an Edge arraylist
     static int userScore = 0;
-
-=======
-    private PointF pointCircle;
-    static ArrayList<PointF> points = new ArrayList<PointF>();
-    static ArrayList<Integer> weights = new ArrayList<Integer>();
-    static ArrayList<Integer> userPath = new ArrayList<Integer>();
-    static ArrayList<Edge> edges = new ArrayList<Edge>();
+    
     static ArrayList<Float> newPoint = new ArrayList<>();
->>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
+
     public LineView(Context context)
     {
         super(context);
@@ -58,16 +51,12 @@ public class LineView extends View {
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
-        //userPath.add(0);
+        userPath.add(0);
         drawLine(canvas); //Draw the lines between the points
         drawCircle(canvas); //Draw the nodes
         drawWeights(canvas); //Draw the weights
-<<<<<<< HEAD
         drawScore(canvas); //Draw the score
-=======
 
-
->>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
     }
 
     public void drawLine(Canvas canvas)
@@ -187,11 +176,7 @@ public class LineView extends View {
             {
 
                 check = true;
-<<<<<<< HEAD
                 Log.d(MainActivity.DEBUGTAG, "THERE IS A LINK");
-=======
-
->>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
                 break;
             }
             else
@@ -262,12 +247,8 @@ public class LineView extends View {
         float x = event.getX();
         float y = event.getY();
         int toNode = whatNode(x, y);
-<<<<<<< HEAD
 
-        if (toNode != -1 && NodeLink(toNode)) //If the user touched node is ACTUALLY a node, AND IF the nodelink is true.
-=======
         if (toNode >= 0 && NodeLink(toNode)) //If the user touched node is ACTUALLY a node, AND IF the nodelink is true.
->>>>>>> 639b3a9e720942dfe0a93f523d2c86832645982d
         {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
@@ -284,6 +265,7 @@ public class LineView extends View {
                         break;
                 }
         }
+
         else if (toNode != -1 && !NodeLink(toNode)) //If the user touched node is ACTUALLY a node, BUT there is no link.
         {
             switch (event.getAction()) {
@@ -295,6 +277,7 @@ public class LineView extends View {
                     break;
             }
         }
+
         else if (toNode == 0) //If the user touches the starting node, with the assumption that they cannot go back.
         {
             switch (event.getAction()) {
