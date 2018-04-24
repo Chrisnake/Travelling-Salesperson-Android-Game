@@ -8,12 +8,10 @@ package com.example.android.graphgame;
 //TODO: Be able to change the total amount of stars if the user has earned more
 /*
     Following star based system could be used,
-    - Complete level = Bronze Medal
-    - Complete level with 60 % accuracy = Silver
-    - Complete level with 70 % accuracy = Gold
-    - Complete level with 80 % accuracy = Platinum
-    - Complete level with 90 % accuracy = Diamond
-    5 STAR SYSTEM
+    - Complete level = 1 star
+    - Complete level with at least 60% accuracy = 2 stars
+    - Complete level with at least 85% accuracy = 3 stars
+    3 STAR SYSTEM
     OR
 
     Another possible solution, a more advanced method
@@ -27,14 +25,11 @@ package com.example.android.graphgame;
 public class Stars
 {
 
-    static double initialScore = 40; //ADD THE SCORE USER GOT TO THIS VARIABLE
-    static double optimalScore = 100; //Get the optimalscore from the database
-    static int bronzeScore = 20; //Complete level
-    static int silverScore = 40; //More than 40% correct
-    static int goldScore = 60; //More than 60% correct
-    static int platinumScore = 80; //More than 80% correct
-    static int diamondScore = 100; // Exactly the same as the optimal score
-
+    static double initialScore = 20; //ADD THE SCORE USER GOT TO THIS VARIABLE
+    static double optimalScore ; //Get the optimalscore from the database//this class that calculates it
+    static double star_1 = 1;
+    static double star_2 = 2;
+    static double star_3 = 3;
     public Stars(int Level, double Score)
     {
         initialScore = Score ; // ENTER USES SCORE HERE
@@ -50,23 +45,15 @@ public class Stars
     {
         double usersReward;
         double accuracyScore = Efficiency(Score);
-        if(accuracyScore == 100)
+        if(accuracyScore >= 85) //85% or more then give 3 stars
         {
-            usersReward = diamondScore;
+            usersReward = star_3;
         }
-        else if (80 <= accuracyScore && accuracyScore < 100)
+        else if (60 <= accuracyScore && accuracyScore < 85) //Less than 85 but greater than 60, give 2 stars
         {
-            usersReward = platinumScore;
+            usersReward = star_2;
         }
-        else if (60 <= accuracyScore && accuracyScore < 80)
-        {
-            usersReward = goldScore;
-        }
-        else if (40 <= accuracyScore && accuracyScore < 60)
-        {
-            usersReward = silverScore;
-        }
-        else
+        else //Give 1 star for completion
         {
             usersReward = completedLevel();
         }
@@ -91,10 +78,7 @@ public class Stars
 
     public static double retrieveOptimalAnswer()
     {
-        /*
-         * int retrieveScore = ; ADD COMMAND HERE TO RETRIEVE OPTIMAL SCORE
-         * CHANGE THE RETURN STATEMENT TO RETURN ABOVE VARIABLE
-         */
+        optimalScore = ShortestPathCalculator.sum;
         return optimalScore;
     }
 
@@ -104,7 +88,7 @@ public class Stars
          * FIRST USE THIS TO CHECK IF USER COMPLETED THE LEVEL SUCCESFULLY TO AWARD BRONZE
          * MAYBE USING AN IF STATEMENT?
          */
-        initialScore = bronzeScore;
+        initialScore = star_1;
         return initialScore;
     }
 } //End of class
