@@ -10,39 +10,27 @@ import java.util.Collections;
 public class ShortestPathCalculator {
 
     public static int levelid; //id OF THE LEVEL
-    public static ArrayList <Integer> shortestPath = new ArrayList<Integer>(ELV1Activity.L1E.size()); // Hold the edges weight
+    public static ArrayList <Integer>  t = ELV1Activity.edgeWeight;
+    public static double sum = tourCost(t.size(),t);//Sum of the minimum path
 
-    public static double sum; //Sum of the minimum path
-
+    //Hold the levelid to retrieve answers from database
     public ShortestPathCalculator(int levelid)
     {
         this.levelid = levelid;
     }
 
-    public static void main()
-    {
-        //Get the level
-        ArrayList <Integer>  t = ELV1Activity.edgeWeight;
-        //Calculate the answer
-        tourCost(t.size(),t);
-        //Return the level answer
-        returnAnswer();
-    }
 
-    public static void tourCost (int N , ArrayList <Integer>  t )
+    public static double tourCost (int N , ArrayList <Integer>  t )
     {
         double s = 0.0;
 
-        for(int i = 0 ; i < t.size() ; i++)
+        for(int i = 0 ; i < N ; i++)
         {
             s += t.get(i);
         }
 
         sum = s ; //Total sum equals the cost of the tour
-    }
-
-    public static double returnAnswer()
-    {
         return sum;
     }
+
 }
